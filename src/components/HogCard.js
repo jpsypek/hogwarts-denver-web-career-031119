@@ -35,14 +35,14 @@ class HogCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: this.props.name,
-      specialty: this.props.specialty,
-      greased: this.props.greased,
+
+      // specialty: this.props.specialty,
+      // greased: this.props.greased,
       image: photos[snake(this.props.name)],
       weight: this.props['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'],
       medal: this.props['highest medal achieved'],
-      shown: this.props.shown,
-      notHidden: this.props.notHidden,
+      // shown: this.props.shown,
+      // notHidden: this.props.notHidden,
       showDetails: false
     }
   }
@@ -62,16 +62,16 @@ class HogCard extends Component {
 
     return (
       <div>
-      {this.state.shown && this.state.notHidden ?
+      {this.props.shown && this.props.notHidden ?
         <div className="ui four wide column">
-          <h2>{this.state.name}</h2>
+          <h2>{this.props.name}</h2>
           <img src={this.state.image} alt={this.state.name}/>
           <br />
           <button onClick={this.toggleShowDetails}>Show More</button>
           <div className="details">
             {this.state.showDetails ? <HogDetails {...this.props}/> : null}
           </div>
-          <button onClick={() => this.props.toggleHide(this.state.name)}>Hide</button>
+          <button onClick={() => this.props.toggleHide(this.props.name)}>Hide</button>
         </div>
       : null }
     </div>
