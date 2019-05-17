@@ -42,6 +42,7 @@ class HogCard extends Component {
       weight: this.props['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'],
       medal: this.props['highest medal achieved'],
       shown: this.props.shown,
+      notHidden: this.props.notHidden,
       showDetails: false
     }
   }
@@ -61,7 +62,7 @@ class HogCard extends Component {
 
     return (
       <div>
-      {this.state.shown ?
+      {this.state.shown && this.state.notHidden ?
         <div className="ui four wide column">
           <h2>{this.state.name}</h2>
           <img src={this.state.image} alt={this.state.name}/>
@@ -70,7 +71,7 @@ class HogCard extends Component {
           <div className="details">
             {this.state.showDetails ? <HogDetails {...this.props}/> : null}
           </div>
-          <button onClick={this.hideCard}>Hide</button>
+          <button onClick={() => this.props.toggleHide(this.state.name)}>Hide</button>
         </div>
       : null }
     </div>

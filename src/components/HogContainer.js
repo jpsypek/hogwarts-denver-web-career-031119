@@ -3,7 +3,7 @@ import HogCard from './HogCard'
 
 const HogContainer = (props) => {
   const HogCards = props.hogs.map((hog, index) => {
-    return <HogCard key={Date.now() + index} {...hog} shown={true}/>
+    return <HogCard key={Date.now() + index} {...hog} toggleHide={props.toggleHide}/>
   })
 
 

@@ -3,7 +3,7 @@ import '../App.css';
 import Nav from './Nav'
 import hogs from '../porkers_data';
 import HogContainer from './HogContainer'
-const hogsWithShown = hogs.map((hog) => ({...hog, shown: true}))
+const hogsWithShown = [...hogs].map((hog) => ({...hog, shown: true, notHidden: true}))
 
 class App extends Component {
 
@@ -37,18 +37,36 @@ class App extends Component {
 
   handleIsGreased = (e) => {
     if (e.target.checked) {
-      const newHogs = [...this.state.hogList].filter((hog) => hog.greased)
-      // const newHogs = this.state.hogs.map((hog) => {
-      //   (hog.shown = false))
+      const newHogs = [...this.state.hogList].map((hog) => {
+        if (hog.greased) {
+          hog.shown = false
+        }
+        return hog
+      })
       this.setState({
         hogList: newHogs
       })
     } else {
-      this.setState({
-        hogList: hogs
+      const newHogs = [...this.state.hogList].map((hog) => {
+          hog.shown = true
+          return hog
       })
-
+      this.setState({
+        hogList: newHogs
+      })
     }
+  }
+
+  toggleHide = (name) => {
+    const newHogs = [...this.state.hogList].map((hog) => {
+      if (hog.name === name) {
+        hog.notHidden = false
+      }
+      return hog
+    })
+    this.setState({
+      hogList: newHogs
+    })
   }
 
   render() {
@@ -75,7 +93,7 @@ class App extends Component {
           </form>
           <br />
           <br />
-          <HogContainer hogs={hogList} />
+          <HogContainer hogs={hogList} toggleHide={this.toggleHide}/>
 
       </div>
     )
